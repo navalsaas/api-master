@@ -1,0 +1,2000 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "App core",
+        "version": "0.1"
+    },
+    "paths": {
+        "/areas/{area_id}": {
+            "get": {
+                "tags": [
+                    "areas"
+                ],
+                "summary": "Get area from id",
+                "operationId": "App\\Http\\Controllers\\Areas\\AreaShowController::__invoke",
+                "parameters": [
+                    {
+                        "name": "area_id",
+                        "in": "path",
+                        "description": "area id",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "$ref": "#/components/schemas/AreaResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Não foi possível encontrar a área"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "areas"
+                ],
+                "summary": "Update area",
+                "operationId": "App\\Http\\Controllers\\Areas\\AreaUpdateController::__invoke",
+                "parameters": [
+                    {
+                        "name": "area_id",
+                        "in": "path",
+                        "description": "area id",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Create area",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateAreaRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "$ref": "#/components/schemas/AreaResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Não foi possível atualizar a área"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "areas"
+                ],
+                "summary": "Delete area",
+                "operationId": "App\\Http\\Controllers\\Areas\\AreaDestroyController::__invoke",
+                "parameters": [
+                    {
+                        "name": "area_id",
+                        "in": "path",
+                        "description": "area id",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "403": {
+                        "description": "Não foi possível excluir a área"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/areas": {
+            "get": {
+                "tags": [
+                    "areas"
+                ],
+                "summary": "List of areas",
+                "operationId": "App\\Http\\Controllers\\Areas\\AreaIndexController::__invoke",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/AreaResource"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "areas"
+                ],
+                "summary": "Create area",
+                "operationId": "App\\Http\\Controllers\\Areas\\AreaStoreController::__invoke",
+                "requestBody": {
+                    "description": "Create area",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateAreaRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "$ref": "#/components/schemas/AreaResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "304": {
+                        "description": "Falha ao criar área"
+                    },
+                    "422": {
+                        "description": "Informa os campos inválidos ou faltando"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/auth/login": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Auth/login",
+                "operationId": "App\\Http\\Controllers\\Auth\\LoginController::login",
+                "requestBody": {
+                    "description": "Login user with email and password",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AuthLoginRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/auth/logout": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Auth/Logout",
+                "operationId": "App\\Http\\Controllers\\Auth\\LoginController::logout",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "$ref": "#/components/schemas/MessageResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/auth/me": {
+            "get": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Auth me",
+                "operationId": "App\\Http\\Controllers\\Auth\\MeShowController::__invoke",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "$ref": "#/components/schemas/UserResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Update User Auth me",
+                "operationId": "App\\Http\\Controllers\\Auth\\MeUpdateController::__invoke",
+                "requestBody": {
+                    "description": "Update User",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UserUpdateRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "$ref": "#/components/schemas/UserResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "500": {
+                        "description": "Falha na atualização do usuário"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/auth/password": {
+            "put": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Update Password to User",
+                "operationId": "App\\Http\\Controllers\\Auth\\MeUpdatePasswordController::__invoke",
+                "requestBody": {
+                    "description": "Update password",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdatePasswordRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "$ref": "#/components/schemas/MessageResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbiden"
+                    },
+                    "500": {
+                        "description": "Falha na atualização do usuário"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/auth/register": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Register User",
+                "requestBody": {
+                    "description": "Register User",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UserRegisterRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "$ref": "#/components/schemas/UserResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Informa os campos inválidos ou faltando"
+                    }
+                }
+            }
+        },
+        "/goals/{goal_id}": {
+            "get": {
+                "tags": [
+                    "goals"
+                ],
+                "summary": "Get goal from id",
+                "operationId": "App\\Http\\Controllers\\Goals\\GoalShowController::__invoke",
+                "parameters": [
+                    {
+                        "name": "goal_id",
+                        "in": "path",
+                        "description": "goal id",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "$ref": "#/components/schemas/GoalResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Não foi possível encontrar o objetivo"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "goals"
+                ],
+                "summary": "Update goal",
+                "operationId": "App\\Http\\Controllers\\Goals\\GoalUpdateController::__invoke",
+                "parameters": [
+                    {
+                        "name": "goal_id",
+                        "in": "path",
+                        "description": "goal id",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Create goal",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateGoalRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "$ref": "#/components/schemas/GoalResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Não foi possível atualizar o objetivo"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "goals"
+                ],
+                "summary": "Delete goal",
+                "operationId": "App\\Http\\Controllers\\Goals\\GoalDestroyController::__invoke",
+                "parameters": [
+                    {
+                        "name": "goal_id",
+                        "in": "path",
+                        "description": "goal id",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "403": {
+                        "description": "Não foi possível excluir o objetivo"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/goals": {
+            "get": {
+                "tags": [
+                    "goals"
+                ],
+                "summary": "List of goals",
+                "operationId": "App\\Http\\Controllers\\Goals\\GoalIndexController::__invoke",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/GoalResource"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "goals"
+                ],
+                "summary": "Create goal",
+                "operationId": "App\\Http\\Controllers\\Goals\\GoalStoreController::__invoke",
+                "requestBody": {
+                    "description": "Create goal",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateGoalRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "$ref": "#/components/schemas/GoalResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "304": {
+                        "description": "Falha ao criar objetivo"
+                    },
+                    "422": {
+                        "description": "Informa os campos inválidos ou faltando"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/gratitude-diaries/{gratitude_diary_id}": {
+            "get": {
+                "tags": [
+                    "gratitude-diaries"
+                ],
+                "summary": "Get gratitude_diary from id",
+                "operationId": "App\\Http\\Controllers\\GratitudeDiaries\\GratitudeDiaryShowController::__invoke",
+                "parameters": [
+                    {
+                        "name": "gratitudediary_id",
+                        "in": "path",
+                        "description": "gratitude diary id",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "$ref": "#/components/schemas/GratitudeDiaryResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Não foi possível encontrar a gratidão diária"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "gratitude-diaries"
+                ],
+                "summary": "Update gratitude_diary",
+                "operationId": "App\\Http\\Controllers\\GratitudeDiaries\\GratitudeDiaryUpdateController::__invoke",
+                "parameters": [
+                    {
+                        "name": "gratitude_diary_id",
+                        "in": "path",
+                        "description": "gratitude_diary id",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Create gratitude diary",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateGratitudeDiaryRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "$ref": "#/components/schemas/GratitudeDiaryResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Não foi possível atualizar a gratidão diária"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "gratitude-diaries"
+                ],
+                "summary": "Delete gratitude_diary",
+                "operationId": "App\\Http\\Controllers\\GratitudeDiaries\\GratitudeDiaryDestroyController::__invoke",
+                "parameters": [
+                    {
+                        "name": "gratitude_diary_id",
+                        "in": "path",
+                        "description": "gratitude_diary id",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "403": {
+                        "description": "Não foi possível excluir a gratidão diária"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/gratitude-diaries": {
+            "get": {
+                "tags": [
+                    "gratitude-diaries"
+                ],
+                "summary": "List of gratitude diaries",
+                "operationId": "App\\Http\\Controllers\\GratitudeDiaries\\GratitudeDiaryIndexController::__invoke",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/GratitudeDiaryResource"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "gratitude-diaries"
+                ],
+                "summary": "Create gratitude diary",
+                "operationId": "App\\Http\\Controllers\\GratitudeDiaries\\GratitudeDiaryStoreController::__invoke",
+                "requestBody": {
+                    "description": "Create gratitude diary",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateGratitudeDiaryRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "$ref": "#/components/schemas/GratitudeDiaryResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "304": {
+                        "description": "Falha ao criar gratidão diária"
+                    },
+                    "422": {
+                        "description": "Informa os campos inválidos ou faltando"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/": {
+            "get": {
+                "tags": [
+                    "index"
+                ],
+                "summary": "Index",
+                "operationId": "App\\Http\\Controllers\\IndexController::__invoke",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "$ref": "#/components/schemas/IndexResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/notes/{note_id}": {
+            "get": {
+                "tags": [
+                    "notes"
+                ],
+                "summary": "Get note from id",
+                "operationId": "App\\Http\\Controllers\\Notes\\NoteShowController::__invoke",
+                "parameters": [
+                    {
+                        "name": "note_id",
+                        "in": "path",
+                        "description": "note id",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "$ref": "#/components/schemas/NoteResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Não foi possível encontrar a nota"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "notes"
+                ],
+                "summary": "Update note",
+                "operationId": "App\\Http\\Controllers\\Notes\\NoteUpdateController::__invoke",
+                "parameters": [
+                    {
+                        "name": "note_id",
+                        "in": "path",
+                        "description": "note id",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Create note",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateNoteRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "$ref": "#/components/schemas/NoteResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Não foi possível atualizar a nota"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "notes"
+                ],
+                "summary": "Delete note",
+                "operationId": "App\\Http\\Controllers\\Notes\\NoteDestroyController::__invoke",
+                "parameters": [
+                    {
+                        "name": "note_id",
+                        "in": "path",
+                        "description": "note id",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "403": {
+                        "description": "Não foi possível excluir a nota"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/notes": {
+            "get": {
+                "tags": [
+                    "notes"
+                ],
+                "summary": "List of notes",
+                "operationId": "App\\Http\\Controllers\\Notes\\NoteIndexController::__invoke",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/NoteResource"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "notes"
+                ],
+                "summary": "Create note",
+                "operationId": "App\\Http\\Controllers\\Notes\\NoteStoreController::__invoke",
+                "requestBody": {
+                    "description": "Create note",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateNoteRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "$ref": "#/components/schemas/NoteResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "304": {
+                        "description": "Falha ao criar nota"
+                    },
+                    "422": {
+                        "description": "Informa os campos inválidos ou faltando"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/streaks/{streak_id}": {
+            "get": {
+                "tags": [
+                    "streaks"
+                ],
+                "summary": "Get streak from id",
+                "operationId": "App\\Http\\Controllers\\Streaks\\StreakShowController::__invoke",
+                "parameters": [
+                    {
+                        "name": "streak_id",
+                        "in": "path",
+                        "description": "streak id",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "$ref": "#/components/schemas/StreakResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Não foi possível encontrar o streak"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "streaks"
+                ],
+                "summary": "Update streak",
+                "operationId": "App\\Http\\Controllers\\Streaks\\StreakUpdateController::__invoke",
+                "parameters": [
+                    {
+                        "name": "streak_id",
+                        "in": "path",
+                        "description": "streak id",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Create streak",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateStreakRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "$ref": "#/components/schemas/StreakResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Não foi possível atualizar o streak"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "streaks"
+                ],
+                "summary": "Delete streak",
+                "operationId": "App\\Http\\Controllers\\Streaks\\StreakDestroyController::__invoke",
+                "parameters": [
+                    {
+                        "name": "streak_id",
+                        "in": "path",
+                        "description": "streak id",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "403": {
+                        "description": "Não foi possível excluir o streak"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/streaks": {
+            "get": {
+                "tags": [
+                    "streaks"
+                ],
+                "summary": "List of streaks",
+                "operationId": "App\\Http\\Controllers\\Streaks\\StreakIndexController::__invoke",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/StreakResource"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "streaks"
+                ],
+                "summary": "Create streak",
+                "operationId": "App\\Http\\Controllers\\Streaks\\StreakStoreController::__invoke",
+                "requestBody": {
+                    "description": "Create streak",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateStreakRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "$ref": "#/components/schemas/StreakResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "304": {
+                        "description": "Falha ao criar streak"
+                    },
+                    "422": {
+                        "description": "Informa os campos inválidos ou faltando"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/tasks/{task_id}": {
+            "get": {
+                "tags": [
+                    "tasks"
+                ],
+                "summary": "Get task from id",
+                "operationId": "App\\Http\\Controllers\\Tasks\\TaskShowController::__invoke",
+                "parameters": [
+                    {
+                        "name": "task_id",
+                        "in": "path",
+                        "description": "task id",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "$ref": "#/components/schemas/TaskResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Não foi possível encontrar a tarefa"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "tasks"
+                ],
+                "summary": "Update task",
+                "operationId": "App\\Http\\Controllers\\Tasks\\TaskUpdateController::__invoke",
+                "parameters": [
+                    {
+                        "name": "task_id",
+                        "in": "path",
+                        "description": "task id",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Create task",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateTaskRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "$ref": "#/components/schemas/TaskResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Não foi possível atualizar a tarefa"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "tasks"
+                ],
+                "summary": "Delete task",
+                "operationId": "App\\Http\\Controllers\\Tasks\\TaskDestroyController::__invoke",
+                "parameters": [
+                    {
+                        "name": "task_id",
+                        "in": "path",
+                        "description": "task id",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "403": {
+                        "description": "Não foi possível excluir a tarefa"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/tasks": {
+            "get": {
+                "tags": [
+                    "tasks"
+                ],
+                "summary": "List of tasks",
+                "operationId": "App\\Http\\Controllers\\Tasks\\TaskIndexController::__invoke",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/TaskResource"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "tasks"
+                ],
+                "summary": "Create task",
+                "operationId": "App\\Http\\Controllers\\Tasks\\TaskStoreController::__invoke",
+                "requestBody": {
+                    "description": "Create task",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateTaskRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "$ref": "#/components/schemas/TaskResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "304": {
+                        "description": "Falha ao criar tarefa"
+                    },
+                    "422": {
+                        "description": "Informa os campos inválidos ou faltando"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "CreateAreaRequest": {
+                "required": [
+                    "name",
+                    "icon"
+                ],
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "icon": {
+                        "type": "string"
+                    },
+                    "comments": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "UpdateAreaRequest": {
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "icon": {
+                        "type": "string"
+                    },
+                    "comments": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "AuthLoginRequest": {
+                "required": [
+                    "email",
+                    "password"
+                ],
+                "properties": {
+                    "email": {
+                        "description": "Email",
+                        "type": "string",
+                        "format": "email",
+                        "example": "emtudo@gmail.com"
+                    },
+                    "password": {
+                        "description": "Senha",
+                        "type": "string",
+                        "format": "password"
+                    }
+                },
+                "type": "object"
+            },
+            "UpdatePasswordRequest": {
+                "properties": {
+                    "current_password": {
+                        "description": "Senha atual",
+                        "type": "string",
+                        "format": "password"
+                    },
+                    "password": {
+                        "description": "Nova senha",
+                        "type": "string",
+                        "format": "password"
+                    }
+                },
+                "type": "object"
+            },
+            "UserRegisterRequest": {
+                "required": [
+                    "name",
+                    "email",
+                    "password"
+                ],
+                "properties": {
+                    "name": {
+                        "description": "Nome",
+                        "type": "string"
+                    },
+                    "email": {
+                        "description": "Email",
+                        "type": "string",
+                        "format": "email"
+                    },
+                    "password": {
+                        "description": "Senha",
+                        "type": "string",
+                        "format": "password"
+                    }
+                },
+                "type": "object"
+            },
+            "UserUpdateRequest": {
+                "properties": {
+                    "name": {
+                        "description": "Nome",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "CreateGoalRequest": {
+                "required": [
+                    "area_id",
+                    "title"
+                ],
+                "properties": {
+                    "area_id": {
+                        "type": "string"
+                    },
+                    "title": {
+                        "type": "string"
+                    },
+                    "comments": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "UpdateGoalRequest": {
+                "properties": {
+                    "area_id": {
+                        "type": "string"
+                    },
+                    "title": {
+                        "type": "string"
+                    },
+                    "comments": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "CreateGratitudeDiaryRequest": {
+                "required": [
+                    "what"
+                ],
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "date": {
+                        "type": "string",
+                        "format": "date"
+                    }
+                },
+                "type": "object"
+            },
+            "UpdateGratitudeDiaryRequest": {
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "date": {
+                        "type": "string",
+                        "format": "date"
+                    }
+                },
+                "type": "object"
+            },
+            "CreateNoteRequest": {
+                "required": [
+                    "title"
+                ],
+                "properties": {
+                    "title": {
+                        "type": "string"
+                    },
+                    "note": {
+                        "type": "string"
+                    },
+                    "favorite": {
+                        "type": "boolean"
+                    },
+                    "order": {
+                        "type": "number"
+                    }
+                },
+                "type": "object"
+            },
+            "UpdateNoteRequest": {
+                "properties": {
+                    "title": {
+                        "type": "string"
+                    },
+                    "note": {
+                        "type": "string"
+                    },
+                    "favorite": {
+                        "type": "boolean"
+                    },
+                    "order": {
+                        "type": "number"
+                    }
+                },
+                "type": "object"
+            },
+            "CreateStreakRequest": {
+                "required": [
+                    "area_id",
+                    "title"
+                ],
+                "properties": {
+                    "area_id": {
+                        "type": "string"
+                    },
+                    "title": {
+                        "type": "string"
+                    },
+                    "date_start": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "date_end": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "type": "object"
+            },
+            "UpdateStreakRequest": {
+                "properties": {
+                    "area_id": {
+                        "type": "string"
+                    },
+                    "title": {
+                        "type": "string"
+                    },
+                    "date_start": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "date_end": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "type": "object"
+            },
+            "CreateTaskRequest": {
+                "required": [
+                    "name",
+                    "area_id",
+                    "days"
+                ],
+                "properties": {
+                    "area_id": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "days": {
+                        "type": "string"
+                    },
+                    "order": {
+                        "type": "number"
+                    }
+                },
+                "type": "object"
+            },
+            "UpdateTaskRequest": {
+                "properties": {
+                    "area_id": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "days": {
+                        "type": "string"
+                    },
+                    "order": {
+                        "type": "number"
+                    }
+                },
+                "type": "object"
+            },
+            "AreaResource": {
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "icon": {
+                        "type": "string"
+                    },
+                    "comments": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "UserResource": {
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string",
+                        "format": "email"
+                    }
+                },
+                "type": "object"
+            },
+            "GoalResource": {
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "area_id": {
+                        "type": "string"
+                    },
+                    "title": {
+                        "type": "string"
+                    },
+                    "comments": {
+                        "type": "string"
+                    },
+                    "icon": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "GratitudeDiaryResource": {
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "what": {
+                        "type": "string"
+                    },
+                    "date": {
+                        "type": "string",
+                        "format": "date"
+                    }
+                },
+                "type": "object"
+            },
+            "IndexResource": {
+                "properties": {
+                    "app_name": {
+                        "type": "string"
+                    },
+                    "database": {
+                        "type": "boolean"
+                    }
+                },
+                "type": "object"
+            },
+            "MessageResource": {
+                "properties": {
+                    "message": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "NoteResource": {
+                "properties": {
+                    "title": {
+                        "type": "string"
+                    },
+                    "note": {
+                        "type": "string"
+                    },
+                    "favorite": {
+                        "type": "boolean"
+                    },
+                    "order": {
+                        "type": "number"
+                    }
+                },
+                "type": "object"
+            },
+            "StreakResource": {
+                "properties": {
+                    "area_id": {
+                        "type": "string"
+                    },
+                    "title": {
+                        "type": "string"
+                    },
+                    "date_start": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "date_end": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "type": "object"
+            },
+            "TaskResource": {
+                "properties": {
+                    "area_id": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "days": {
+                        "type": "string"
+                    },
+                    "order": {
+                        "type": "number"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "securitySchemes": {
+            "bearer": {
+                "type": "apiKey",
+                "name": "Authorization",
+                "in": "header",
+                "bearerFormat": "JWT"
+            }
+        }
+    }
+}

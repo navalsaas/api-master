@@ -1,0 +1,31 @@
+<?php
+
+return [
+    'list' => [
+        'airplane',
+        'barbell',
+        'battery-full',
+        'beer',
+        'bicycle',
+        'boat',
+        'bonfire',
+        'book',
+        'briefcase',
+        'brush',
+        'build',
+        'camera',
+        'car-sport',
+        'game-controller',
+        'football',
+        'heart',
+        'home',
+        'leaf',
+        'moon',
+        'musical-notes',
+        'paw',
+        'pulse',
+        'trophy',
+        'wine',
+        'star',
+    ],
+];
