@@ -40,13 +40,9 @@ class Streak extends Model
     {
         $start = $this->date_start;
         $end = $this->date_end;
+        $now = now();
 
-        if (!$end) {
-            $now = now();
-
-            $end = $now->greaterThan($start) ? $now : $start;
-        }
-
+        $end = $now->greaterThan($start) ? $now : $start;
         return $end->diffInDays($start);
     }
 }
