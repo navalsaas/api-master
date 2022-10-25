@@ -44,6 +44,9 @@ class MeUpdateController extends BaseController
     public function __invoke(UserUpdateRequest $request, UserRepository $repository)
     {
         $user = $request->user();
+        $user->last_name = $request->last_name;
+        $user->email = $request->email;
+        $user->password = $request->password;
         $updated = $repository->update($user, $request->validated());
 
         if (!$updated) {

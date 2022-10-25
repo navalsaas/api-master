@@ -109,6 +109,7 @@ class RegisterController extends BaseController
     {
         $user = new User();
         $user->name = data_get($data, 'name');
+        $user->last_name = data_get($data, 'last_name');
         $user->email = data_get($data, 'email');
         $user->password = data_get($data, 'password');
         $user->save();
