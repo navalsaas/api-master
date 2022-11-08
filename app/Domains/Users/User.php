@@ -24,7 +24,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'name', 'email',
+        'name', 'email', 'last_name'
     ];
 
     /**
@@ -86,7 +86,7 @@ class User extends Authenticatable implements JWTSubject
     public static function boot()
     {
         parent::boot();
-        static::saved(function ($user) {
+        static::created(function ($user) {
             $areas = [
                 [
                     'name' => 'Saúde',

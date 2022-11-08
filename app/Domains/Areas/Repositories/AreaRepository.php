@@ -15,5 +15,5 @@ class AreaRepository extends UserRepository
         'comments',
     ];
 
-    protected $defaultSort = 'name';
+    protected $defaultSort = 'created_at';
 }

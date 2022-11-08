@@ -28,6 +28,12 @@ class UserRegisterRequest extends Request
                 'min:3',
                 'max:60',
             ],
+            'last_name' => [
+                'required',
+                'string',
+                'min:3',
+                'max:60',
+            ],
             'email' => [
                 'required',
                 'email',

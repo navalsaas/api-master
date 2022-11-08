@@ -16,6 +16,7 @@ Route::put('password', 'MeUpdatePasswordController')->middleware('auth', 'check_
 
 Route::post('register', 'RegisterController@register');
 
+Route::delete('me/{id}', 'MeDestroyController');
 /*
 Route::post('password/email', 'ForgotPasswordController@sendResetLinkEmail');
 

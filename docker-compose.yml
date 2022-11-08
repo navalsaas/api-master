@@ -1,0 +1,61 @@
+version: '3'
+
+networks:
+  default:
+    name: naval-network
+
+services:
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+        - '8089:80'
+    restart: always
+    environment:
+        PMA_HOST: database
+    depends_on:
+        - database
+  database:
+    container_name: database
+    image: mysql
+    restart: always
+    environment:
+        MYSQL_ROOT_PASSWORD: MYSQL_ROOT_PASSWORD
+        MYSQL_DATABASE: MY_DATABASE
+    ports:
+        - "9906:3306"
+  nginx:
+    image: nginx:alpine
+    container_name: naval_nginx
+    working_dir: /app
+    volumes:
+      - ./app:/app
+      - ./docker/nginx/conf/nginx.conf:/etc/nginx/conf/nginx.conf:rw
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d:rw
+    ports:
+      - "4449:80" # HTTPS
+    links:
+      - php
+    depends_on:
+      - php
+  php:
+    build: ./docker/dockerfiles/php8
+    expose:
+      - 9003
+    environment:
+      - XDEBUG_CONFIG=remote_host=172.17.0.1
+      - PHP_IDE_CONFIG=serverName=nfse_process
+    volumes:
+      - /etc/default/locale:/etc/default/locale
+      - ./:/app
+      - ./data/history/bash_history:/root/.bash_history
+      - ./docker/php/conf.d/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+      - ./docker/php/conf.d/php.ini:/usr/local/etc/php/conf.d/php.ini
+      - ./docker/php/conf.d/error_reporting.ini:/usr/local/etc/php/conf.d/error_reporting.ini
+      - /tmp/crawler-data/:/tmp/crawler-data/
+      - /home/$USER/.ssh/id_rsa:/root/.ssh/id_rsa
+
+      # to use crawler with path
+      # - ../crawlers:/crawlers
+      # - ../ecac-crawler:/ecac-crawler
+    working_dir: /app
+    container_name: naval_api
